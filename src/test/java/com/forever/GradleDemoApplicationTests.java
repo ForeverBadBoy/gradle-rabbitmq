@@ -1,6 +1,7 @@
 package com.forever;
 
 import com.forever.config.RabbitConfig;
+import com.forever.provider.RabbitMessageProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +17,16 @@ public class GradleDemoApplicationTests {
 	@Autowired
 	private RabbitConfig rabbitConfig;
 
+	@Autowired
+	private RabbitMessageProducer rabbitMessageProducer;
+
 	@Test
 	public void contextLoads() {
 		log.info("start success");
 		log.info("rabbitConfig:{}", rabbitConfig);
+		String message = "hello";
+		String routingKey = "forever.sms.key";
+		rabbitMessageProducer.sendMessage(message, routingKey);
 	}
 
 }
